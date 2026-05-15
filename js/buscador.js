@@ -179,21 +179,86 @@
     }
 
     lista.innerHTML = filtrado.map((o, i) => filaResultado(o, i)).join("");
+
+    // Engancha los botones de "copiar enlace" (delegación)
+    lista.querySelectorAll(".copiar-enlace").forEach((btn) => {
+      btn.addEventListener("click", (ev) => {
+        ev.preventDefault();
+        ev.stopPropagation();
+        const id = btn.getAttribute("data-id");
+        copiarEnlace(btn, id);
+      });
+    });
+
+    // Si la URL trae ancla, desplazarse al resultado correspondiente
+    const ancla = window.location.hash.slice(1);
+    if (ancla) {
+      const fila = document.getElementById(ancla);
+      if (fila) {
+        setTimeout(() => {
+          fila.scrollIntoView({ behavior: "smooth", block: "center" });
+        }, 200);
+      }
+    }
+  }
+
+  /* ---------- Copiar enlace permanente ------------------------------ */
+  async function copiarEnlace(btn, id) {
+    if (!id) return;
+    const url =
+      window.location.origin + window.location.pathname + "#" + id;
+    const textoNodo = btn.querySelector(".copiar-enlace__texto");
+    const original = textoNodo ? textoNodo.textContent : "";
+    const restaurar = () => {
+      btn.classList.remove("copiado");
+      if (textoNodo) textoNodo.textContent = original;
+    };
+    try {
+      if (navigator.clipboard && window.isSecureContext) {
+        await navigator.clipboard.writeText(url);
+      } else {
+        const ta = document.createElement("textarea");
+        ta.value = url;
+        ta.setAttribute("readonly", "");
+        ta.style.position = "absolute";
+        ta.style.left = "-9999px";
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand("copy");
+        document.body.removeChild(ta);
+      }
+      btn.classList.add("copiado");
+      if (textoNodo) textoNodo.textContent = "Enlace copiado";
+      setTimeout(restaurar, 2200);
+    } catch (e) {
+      if (textoNodo) textoNodo.textContent = "No se pudo copiar";
+      setTimeout(restaurar, 2200);
+    }
   }
 
   function filaResultado(o, i) {
     const delay = (i * 0.05).toFixed(2);
+    const idAttr = esc(o.id || "");
     return `
-      <a class="resultado" href="corpus.html#obra-${esc(o.id)}"
-         style="animation-delay:${delay}s">
+      <article class="resultado" id="${idAttr}"
+               style="animation-delay:${delay}s">
         <div class="resultado__fecha">${esc(o.fecha)}</div>
         <div class="resultado__cuerpo">
           <div class="resultado__autor">${esc(o.autor)}</div>
-          <h3 class="resultado__titulo">${esc(o.titulo)}</h3>
+          <h3 class="resultado__titulo">
+            <a href="corpus.html#${idAttr}">${esc(o.titulo)}</a>
+          </h3>
           <p class="resultado__resumen">${esc(o.resumen)}</p>
+          <button type="button"
+                  class="copiar-enlace copiar-enlace--resultado"
+                  data-id="${idAttr}"
+                  aria-label="Copiar enlace permanente a este resultado">
+            <span class="copiar-enlace__icono">#</span>
+            <span class="copiar-enlace__texto">Copiar enlace</span>
+          </button>
         </div>
         <div class="resultado__genero">${esc(o.genero)}</div>
-      </a>`;
+      </article>`;
   }
 
   document.addEventListener("DOMContentLoaded", cargar);

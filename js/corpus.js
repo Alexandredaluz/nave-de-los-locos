@@ -34,6 +34,18 @@
     actualizarContador(contador);
     construirFiltros(filtros);
     pintar(grid);
+
+    // Si la URL tiene ancla, desplegar esa ficha automáticamente
+    const ancla = window.location.hash.slice(1);
+    if (ancla) {
+      const tarjeta = document.getElementById(ancla);
+      if (tarjeta) {
+        tarjeta.classList.add("expandida");
+        setTimeout(() => {
+          tarjeta.scrollIntoView({ behavior: "smooth", block: "center" });
+        }, 400);
+      }
+    }
   }
 
   /* ---------- Contador dinámico ------------------------------------- */
@@ -94,6 +106,13 @@
 
     grid.querySelectorAll(".obra").forEach((card) => {
       card.addEventListener("click", (ev) => {
+        // Botón "copiar enlace": no abre ni cierra la ficha
+        const copiarBtn = ev.target.closest(".copiar-enlace");
+        if (copiarBtn) {
+          ev.stopPropagation();
+          copiarEnlace(copiarBtn, card.id);
+          return;
+        }
         if (ev.target.closest(".ficha-cerrar")) {
           cerrar(card);
           return;
@@ -128,9 +147,43 @@
     card.classList.remove("expandida");
   }
 
+  /* ---------- Copiar enlace permanente ------------------------------ */
+  async function copiarEnlace(btn, id) {
+    if (!id) return;
+    const url =
+      window.location.origin + window.location.pathname + "#" + id;
+    const textoNodo = btn.querySelector(".copiar-enlace__texto");
+    const original = textoNodo ? textoNodo.textContent : "";
+    const restaurar = () => {
+      btn.classList.remove("copiado");
+      if (textoNodo) textoNodo.textContent = original;
+    };
+    try {
+      if (navigator.clipboard && window.isSecureContext) {
+        await navigator.clipboard.writeText(url);
+      } else {
+        const ta = document.createElement("textarea");
+        ta.value = url;
+        ta.setAttribute("readonly", "");
+        ta.style.position = "absolute";
+        ta.style.left = "-9999px";
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand("copy");
+        document.body.removeChild(ta);
+      }
+      btn.classList.add("copiado");
+      if (textoNodo) textoNodo.textContent = "Enlace copiado";
+      setTimeout(restaurar, 2200);
+    } catch (e) {
+      if (textoNodo) textoNodo.textContent = "No se pudo copiar";
+      setTimeout(restaurar, 2200);
+    }
+  }
+
   /* ---------- Plantilla de tarjeta ----------------------------------- */
   function plantillaTarjeta(o, i) {
-    const id = "obra-" + (o.id || i);
+    const id = o.id || "obra-" + i;
     const temas = (o.temas || [])
       .map((t) => `<span class="ficha-tema">${esc(t)}</span>`)
       .join("");
@@ -164,7 +217,7 @@
       : "";
 
     return `
-      <article class="obra fade-up" id="${id}" data-id="${esc(o.id || "")}">
+      <article class="obra fade-up" id="${esc(id)}" data-id="${esc(o.id || "")}">
         <button type="button" class="ficha-cerrar" aria-label="Cerrar ficha">Cerrar</button>
         <div class="obra__cabecera">
           <div class="obra__autor">${esc(o.autor)}</div>
@@ -186,6 +239,11 @@
               <div class="ficha-relevancia__etiqueta">Relevancia para la tesis</div>
               <div class="ficha-relevancia__cuerpo">${esc(o.relevancia_tesis)}</div>
             </div>
+
+            <button type="button" class="copiar-enlace" aria-label="Copiar enlace permanente a esta ficha">
+              <span class="copiar-enlace__icono">#</span>
+              <span class="copiar-enlace__texto">Copiar enlace permanente</span>
+            </button>
 
             <div class="ficha-cierre">
               <span class="ficha-cierre__diamante">◆</span>
