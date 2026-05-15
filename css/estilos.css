@@ -1486,10 +1486,9 @@ main {
   background: var(--blanco);
   border: 2px solid var(--oro);
   border-radius: 50%;
-  margin: 0.4rem auto 1.5rem;
+  margin: 0 auto 2.2rem;
   position: relative;
   z-index: 2;
-  order: 2;
   transition: transform var(--transicion-rapida), background var(--transicion-rapida);
 }
 
@@ -1503,8 +1502,7 @@ main {
   font-size: 0.95rem;
   color: var(--oro);
   letter-spacing: 0.12em;
-  margin-bottom: 0;
-  order: 1;
+  margin-bottom: 0.6rem;
 }
 
 .hito__cuerpo {
@@ -1512,7 +1510,6 @@ main {
   font-size: 0.85rem;
   line-height: 1.6;
   color: var(--gris-editorial);
-  order: 1;
 }
 
 /* ---------- Acerca / Dossier --------------------------------------- */
