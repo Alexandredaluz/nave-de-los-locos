@@ -1486,9 +1486,10 @@ main {
   background: var(--blanco);
   border: 2px solid var(--oro);
   border-radius: 50%;
-  margin: 1.5rem auto;
+  margin: 0.4rem auto 1.5rem;
   position: relative;
   z-index: 2;
+  order: 2;
   transition: transform var(--transicion-rapida), background var(--transicion-rapida);
 }
 
@@ -1499,10 +1500,11 @@ main {
 
 .hito__fecha {
   font-family: var(--mono);
-  font-size: 1.1rem;
-  color: var(--bermellon);
-  letter-spacing: 0.05em;
-  margin-bottom: 0.5rem;
+  font-size: 0.95rem;
+  color: var(--oro);
+  letter-spacing: 0.12em;
+  margin-bottom: 0;
+  order: 1;
 }
 
 .hito__cuerpo {
@@ -1510,6 +1512,7 @@ main {
   font-size: 0.85rem;
   line-height: 1.6;
   color: var(--gris-editorial);
+  order: 1;
 }
 
 /* ---------- Acerca / Dossier --------------------------------------- */
