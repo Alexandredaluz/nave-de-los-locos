@@ -343,7 +343,7 @@ main {
 }
 
 .seccion {
-  padding: 6rem 0;
+  padding: 9rem 0;
 }
 
 .seccion--marfil {
@@ -358,6 +358,7 @@ main {
   text-align: center;
   margin-bottom: 4rem;
 }
+/* (margin-bottom 4rem confirmado para mejora 2.5) */
 
 .titulo-seccion__etiqueta {
   font-family: var(--mono);
@@ -404,7 +405,7 @@ main {
   width: 100%;
   display: grid;
   grid-template-columns: 1.1fr 0.9fr;
-  gap: 4rem;
+  gap: 6rem;
   align-items: center;
 }
 
@@ -596,7 +597,8 @@ main {
 .tres-ideas {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 3rem;
+  gap: 3.5rem;
+  padding: 2rem 0;
 }
 
 .idea {
@@ -656,7 +658,7 @@ main {
 .acceso {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 2rem;
+  gap: 3rem;
 }
 
 .acceso__tarjeta {
@@ -1486,7 +1488,7 @@ main {
   background: var(--blanco);
   border: 2px solid var(--oro);
   border-radius: 50%;
-  margin: 0 auto 2.2rem;
+  margin: 1.5rem auto;
   position: relative;
   z-index: 2;
   transition: transform var(--transicion-rapida), background var(--transicion-rapida);
@@ -1499,10 +1501,10 @@ main {
 
 .hito__fecha {
   font-family: var(--mono);
-  font-size: 0.95rem;
-  color: var(--oro);
-  letter-spacing: 0.12em;
-  margin-bottom: 0.6rem;
+  font-size: 1.1rem;
+  color: var(--bermellon);
+  letter-spacing: 0.05em;
+  margin-bottom: 0.5rem;
 }
 
 .hito__cuerpo {
@@ -1522,7 +1524,7 @@ main {
 .fichas-academicas {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 1.5rem;
+  gap: 2.5rem;
   margin-bottom: 5rem;
 }
 
@@ -1847,4 +1849,173 @@ main {
   font-family: var(--mono);
   font-size: 0.85rem;
   letter-spacing: 0.1em;
+}
+
+/* =====================================================================
+   AÑADIDOS · Mejoras 3 y 4
+   (Botón "Copiar enlace permanente" · Página de metodología · Tabla editorial)
+   ===================================================================== */
+
+/* ---------- Botón copiar enlace ----------------------------------- */
+.copiar-enlace {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  margin-top: 1.2rem;
+  padding: 0.4rem 0;
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  color: var(--gris-editorial);
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: color var(--transicion-rapida);
+}
+
+.copiar-enlace:hover,
+.copiar-enlace:focus-visible {
+  color: var(--oro);
+  outline: none;
+}
+
+.copiar-enlace.copiado {
+  color: var(--oro);
+}
+
+.copiar-enlace__icono {
+  font-family: var(--mono);
+  font-size: 0.95rem;
+  line-height: 1;
+}
+
+.copiar-enlace--resultado {
+  margin-top: 0.6rem;
+}
+
+/* ---------- Página de metodología --------------------------------- */
+.metodologia {
+  max-width: 920px;
+  margin: 0 auto;
+  padding: 4rem 2.4rem 8rem;
+}
+
+.metodologia__seccion {
+  margin-bottom: 5rem;
+}
+
+.metodologia__seccion:last-of-type {
+  margin-bottom: 3rem;
+}
+
+.metodologia__numero {
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--oro);
+  margin-bottom: 1rem;
+}
+
+.metodologia__titulo {
+  font-family: var(--serif-titular);
+  font-style: italic;
+  font-weight: 300;
+  font-size: clamp(1.8rem, 3.2vw, 2.6rem);
+  color: var(--abismo);
+  line-height: 1.15;
+  margin-bottom: 2rem;
+}
+
+.metodologia__cuerpo p {
+  font-family: var(--serif-cuerpo);
+  font-size: 1.02rem;
+  line-height: 1.95;
+  margin-bottom: 1.3rem;
+  max-width: 740px;
+  color: var(--tinta);
+}
+
+.metodologia__cuerpo em {
+  font-style: italic;
+}
+
+.metodologia__cuerpo .descriptores {
+  font-family: var(--mono);
+  font-size: 0.88rem;
+  color: var(--abismo);
+  letter-spacing: 0.02em;
+  line-height: 1.9;
+  background: var(--marfil);
+  padding: 1.2rem 1.6rem;
+  border-left: 3px solid var(--oro);
+  margin-top: 1rem;
+  max-width: 740px;
+}
+
+.metodologia__cierre {
+  margin-top: 3rem;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+/* ---------- Tabla editorial --------------------------------------- */
+.tabla-fichas {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0 0;
+  font-family: var(--serif-cuerpo);
+}
+
+.tabla-fichas thead th {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--oro);
+  text-align: left;
+  padding: 0.9rem 1.2rem 0.9rem 0;
+  border-bottom: 1.5px solid var(--abismo);
+  font-weight: 500;
+}
+
+.tabla-fichas tbody td {
+  padding: 1rem 1.2rem 1rem 0;
+  border-bottom: 1px solid var(--gris-borde);
+  vertical-align: top;
+  line-height: 1.7;
+}
+
+.tabla-fichas tbody td:first-child {
+  font-family: var(--mono);
+  font-size: 0.85rem;
+  color: var(--abismo);
+  white-space: nowrap;
+  width: 32%;
+  padding-right: 2rem;
+}
+
+.tabla-fichas tbody td:last-child {
+  font-size: 0.96rem;
+  color: var(--tinta);
+  padding-right: 0;
+}
+
+.tabla-fichas tbody tr:last-child td {
+  border-bottom: none;
+}
+
+@media (max-width: 768px) {
+  .metodologia {
+    padding: 3rem 1.4rem 6rem;
+  }
+  .tabla-fichas tbody td:first-child {
+    width: 40%;
+    font-size: 0.78rem;
+  }
+  .tabla-fichas tbody td:last-child {
+    font-size: 0.9rem;
+  }
 }
