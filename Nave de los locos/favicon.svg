@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" shape-rendering="geometricPrecision">
+  <!-- Fondo blanco -->
+  <rect width="32" height="32" fill="#ffffff"/>
+  <!-- Mástil -->
+  <rect x="15" y="3" width="2" height="17" fill="#0a1628"/>
+  <!-- Banderín dorado -->
+  <path d="M 17 3 L 23 5 L 17 7 Z" fill="#b8860b"/>
+  <!-- Vela triangular -->
+  <path d="M 17 5 L 27 19 L 17 19 Z" fill="#b8860b" stroke="#0a1628" stroke-width="0.6" stroke-linejoin="round"/>
+  <!-- Casco -->
+  <path d="M 3 20 L 29 20 L 26 28 Q 16 30.5 6 28 Z" fill="#0a1628" stroke-linejoin="round"/>
+</svg>
