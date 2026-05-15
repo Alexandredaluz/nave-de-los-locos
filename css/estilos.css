@@ -1488,7 +1488,7 @@ main {
   background: var(--blanco);
   border: 2px solid var(--oro);
   border-radius: 50%;
-  margin: 1.5rem auto;
+  margin: 0 auto 2.2rem;
   position: relative;
   z-index: 2;
   transition: transform var(--transicion-rapida), background var(--transicion-rapida);
@@ -1502,7 +1502,7 @@ main {
 .hito__fecha {
   font-family: var(--mono);
   font-size: 1.1rem;
-  color: var(--bermellon);
+  color: var(--oro);
   letter-spacing: 0.05em;
   margin-bottom: 0.5rem;
 }
